@@ -1,0 +1,18 @@
+.formUser {
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px;
+    margin-top: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.formUser input, .formUser button {
+    margin: 5px;
+    padding: 10px;
+    border-radius:5px;
+    border:1px solid #ccc;
+    width: 400px;
+}
