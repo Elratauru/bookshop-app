@@ -13,10 +13,15 @@ const file = join(__dirname, 'db.json')
 const adapter = new JSONFile<Data>(file);
 const defaultData: Data = { users: [] };
 
-export class Database {
-    db: Low<Data>;
-
-    constructor() {
-        this.db = new Low<Data>(adapter, defaultData);
+export const databaseProviders = [
+    {
+        provide: 'DATABASE_CONNECTION',
+        useFactory: async (): Promise<Low<Data>> => {
+            try {
+                return new Low<Data>(adapter, defaultData);
+            } catch (error) {
+                throw error;
+            }
+        }
     }
-}
+]
