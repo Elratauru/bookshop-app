@@ -24,6 +24,7 @@ export function Book(bookObject){
 
     // For each book, we wanna check if it's stored on the user information or not to know the state of the button.
     const localBookmarks = localStorage.getItem('bookmarks');
+    console.log(localBookmarks);
     const bookmarks = (localBookmarks) ? JSON.parse(localBookmarks) : [];
     const bookmarksFilter = bookmarks.filter((bookmark) => bookmark.id === book.id);
     const inBookmarks: boolean = (bookmarksFilter.length > 0);

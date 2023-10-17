@@ -57,6 +57,7 @@ function User(attributes) {
     );
 
     //Set the bookmarks locally.
+    console.log(data);
     localStorage.setItem('bookmarks', JSON.stringify(data.bookmarks));
   
     return (
