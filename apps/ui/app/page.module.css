@@ -24,6 +24,25 @@
   box-shadow: #aaa 0px 10px 20px;
 }
 
+.filterResults {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.formFilter > div {
+  margin: 10px;
+}
+
+.formFilter .filterButton {
+  margin-right:10px;
+}
+
+.formFilter > button {
+  margin-top:22px;
+}
+
 .book .title {
   font-size: 15px;
   text-transform: uppercase;

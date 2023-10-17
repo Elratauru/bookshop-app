@@ -4,6 +4,7 @@ import Button from '@mui/material/Button';
 import {useState} from 'react';
 
 const API_URL = 'http://localhost:4000/users';
+
 const TEXT_BUTTONS = {
     add: 'Add to Bookmarks',
     remove: 'Remove from Bookmarks',
@@ -17,12 +18,13 @@ const TEXT_STYLES = {
 }
 
 export function Book(bookObject){
+    let displayButton = false;
     const book = bookObject.object;
+    const userId: string | null = localStorage.getItem('user_id');
 
     // For each book, we wanna check if it's stored on the user information or not to know the state of the button.
     const localBookmarks = localStorage.getItem('bookmarks');
     const bookmarks = (localBookmarks) ? JSON.parse(localBookmarks) : [];
-
     const bookmarksFilter = bookmarks.filter((bookmark) => bookmark.id === book.id);
     const inBookmarks: boolean = (bookmarksFilter.length > 0);
     
@@ -31,12 +33,13 @@ export function Book(bookObject){
     const [buttonState, setButton] = useState<string>(inBookmarks ? 'remove' : 'add');
     const [buttonText, setText] = useState<string>(inBookmarks ? TEXT_BUTTONS.remove : TEXT_BUTTONS.add);
 
-    // Checking if we need to display the buttons or not.
-    let displayButton = false;
-    const userId: string | null = localStorage.getItem('user_id');
+     // Checking if we need to display the buttons or not.
     if(userId !== null) displayButton = true;
 
     async function addOrRemoveBookmarks(bookId: number){
+        const localBookmarks = localStorage.getItem('bookmarks');
+        const bookmarks = (localBookmarks) ? JSON.parse(localBookmarks) : [];
+
         // We have an intermediary state for saving status.
         changeButtonState('saving');
 

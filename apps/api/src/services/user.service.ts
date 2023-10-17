@@ -1,29 +1,21 @@
-import { Injectable } from '@nestjs/common';
-import { Database } from '../db/db.js';
+import { Inject, Injectable } from '@nestjs/common';
 import { User } from '../utilities/types/User.js';
 import { v4 } from 'uuid';
 
 @Injectable()
 export class UserService {
-    dbInstance = new Database();
-    db = this.dbInstance.db;
+    constructor(@Inject('DATABASE_CONNECTION') private db) { }
 
-    async listUsers(): Promise<User[]> {
-        await this.db.read();
-        const { users } = this.dbInstance.db.data;    
-        return users;
+    async listUsers(): Promise<User[]> {  
+        return this.db.data.users;
     }
 
     // Method runs a filter through all the found information.
     // In a real production environment, the db call should be done against a single id instead.
     async getUser(userUUID: string): Promise<User> {
-        await this.db.read();
-        const { users } = this.dbInstance.db.data;
-        let filteredUsers = users.filter(
+        return this.db.data.users.find(
             user => user.uuid == userUUID
         );
-
-        return filteredUsers[0];
     }
 
     // Create a single user based on the name, the generated UUID will act as a primary key.
